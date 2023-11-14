@@ -3,7 +3,7 @@ const db = require('../../config/db.js');
 
 async function get6NoteRegisters(req, res) {
   try {
-    const [rows] = await db.query('SELECT id, valor, tipo, notaFiscal FROM registro LIMIT 6;');
+    const [rows] = await db.query('SELECT id, valor, tipo, notaFiscal FROM registro ORDER BY data ASC LIMIT 6;');
     res.json(rows);
   } catch (error) {
     console.error('Erro ao buscar as seis primeiras notas fiscais da tabela de registro:', error);

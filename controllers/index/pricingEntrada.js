@@ -3,7 +3,7 @@ const db = require('../../config/db.js');
 
 async function getAllPricingEntrance(req, res) {
   try {
-    const [rows] = await db.query("SELECT SUM(valor) FROM registro WHERE tipo = 'Entrada';");
+    const [rows] = await db.query("SELECT COALESCE(SUM(valor), 0.00) as TotalEntrada FROM registro WHERE tipo = 'Entrada';");
     res.json(rows);
   } catch (error) {
     console.error('Erro ao contar o valor das entradas no banco:', error);

@@ -1,4 +1,4 @@
-// controllers/entradas.js
+// controllers/saidas.js
 const db = require('../../config/db.js')
 
 async function inserirSaida(req, res) {
@@ -7,6 +7,7 @@ async function inserirSaida(req, res) {
   const query = 'INSERT INTO registro ( titulo, operacional, tipo, data, valor, descricao, status, notaFiscal, qtdParcelas, contaBancaria_id, fornecedor_id, tipoPagamento) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
   try {
     await db.query(query, [ titulo, categoria, tipo, data, valor, historico, status , notaFiscal , parcela, destinatario, fornecedor, pagamento]);
+    
     res.status(200).json({ message: 'Registro de saida inserido com sucesso' });
   } catch (error) {
     console.error('Erro ao inserir saida no banco de dados:', error);

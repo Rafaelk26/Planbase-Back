@@ -1,4 +1,4 @@
-// routes/modal/entradas.js
+// routes/modal/saidas.js
 const express = require('express');
 const router = express.Router();
 const saidasController = require('../../controllers/modal/saidas');

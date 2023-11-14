@@ -1,24 +1,20 @@
-const ContaBancaria = require('../../models/create/createCard');
+// controllers/createCard.js
+const db = require('../../config/db.js');
 
-async function criarCartaoBancario(cartaoData) {
+async function inserirCartaoBancario(req, res) {
+  const { agencia, conta, taxa, tipoCobranca, InstituicaoBancaria, codigoBancario } = req.body;
+  
+  const query = 'INSERT INTO contabancaria ( agencia, conta, taxa, tipoCobranca, instituicaoBancaria, codigoBancario) VALUES (?, ?, ?, ?, ?, ?);';
   try {
-    return await ContaBancaria.create(cartaoData);
-  } catch (error) {
-    console.error('Erro ao criar o cartão bancário:', error);
-    throw error;
-  }
-}
+    await db.query(query, [ agencia, conta, taxa, tipoCobranca, InstituicaoBancaria, codigoBancario]);
 
-async function buscarCartoesBancarios() {
-  try {
-    return await ContaBancaria.findAll();
+    res.status(200).json({ message: 'Cartão inserido com sucesso' });
   } catch (error) {
-    console.error('Erro ao buscar cartões bancários:', error);
-    throw error;
+    console.error('Erro ao inserir o cartão no banco de dados', error);
+    res.status(500).json({ message: 'Erro ao inserir o cartão no banco de dados' });
   }
 }
 
 module.exports = {
-  criarCartaoBancario,
-  buscarCartoesBancarios,
+  inserirCartaoBancario,
 };
